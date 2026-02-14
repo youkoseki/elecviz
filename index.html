@@ -482,15 +482,15 @@ function renderChart(canvas, district) {
             const hex = Array.isArray(bg) ? bg[context.dataIndex] : bg;
             const base = textColorFor(hex);
             const cand = context.dataset._candidates[context.dataIndex];
-            if (cand && cand.status === '前') {
+            if (cand && (cand.win_smd === '1' || cand.win_pr === '1')) {
               return base === '#fff' ? '#ffee55' : '#b8860b';
             }
             return base;
           },
           font: (context) => {
             const cand = context.dataset._candidates[context.dataIndex];
-            const isWinner = cand && (cand.win_smd === '1' || cand.win_pr === '1');
-            return { size: 12, weight: isWinner ? 'bold' : 'normal' };
+            const isZenshoku = cand && cand.status === '前';
+            return { size: 12, weight: isZenshoku ? 'bold' : 'normal' };
           },
           anchor: 'center',
           textAlign: 'center',

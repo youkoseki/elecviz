@@ -472,7 +472,7 @@ function renderChart(canvas, district) {
           formatter: (value, context) => {
             const cand = context.dataset._candidates[context.dataIndex];
             if (!cand || value === 0) return '';
-            const win = cand.win_smd === '1' ? '\n当選' : (cand.win_pr === '1' ? '\n復活' : '');
+            const win = cand.win_smd === '1' ? '\n当選🎉' : (cand.win_pr === '1' ? '\n復活🔄' : '');
             const name = cand.name.replace(/\s+/g, '');
             const pct = Math.round(parseFloat(cand.vshare));
             return `${name}\n${cand.party} ${pct}%${win}`;

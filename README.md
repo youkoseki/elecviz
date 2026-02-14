@@ -22,7 +22,7 @@
 
 ## データ
 
-[柳井俊宏氏が公開している選挙データ](https://yukiyanai.github.io/jp/resources/)を利用しています。
+[矢内勇生氏が公開している選挙データ](https://yukiyanai.github.io/jp/resources/)を利用しています。
 
 ## ライセンス
 

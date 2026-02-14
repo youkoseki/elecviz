@@ -482,7 +482,7 @@ function renderChart(canvas, district) {
             const hex = Array.isArray(bg) ? bg[context.dataIndex] : bg;
             const base = textColorFor(hex);
             const cand = context.dataset._candidates[context.dataIndex];
-            if (cand && cand.status === '元') {
+            if (cand && cand.status === '前') {
               return base === '#fff' ? '#ffee55' : '#b8860b';
             }
             return base;

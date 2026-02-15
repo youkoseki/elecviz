@@ -241,6 +241,7 @@ const CODE_TO_PREF = {
 let allData = {};
 let charts = [];
 let selectedPref = '';
+let userNavigated = false;
 
 function setupMap() {
   document.querySelectorAll('.japan-map-svg .prefecture').forEach(g => {
@@ -288,7 +289,9 @@ function selectPref(pref) {
   const sel = document.getElementById('pref-select');
   if (sel.value !== pref) sel.value = pref;
 
-  history.replaceState(null, '', `?${pref}`);
+  if (userNavigated) {
+    history.replaceState(null, '', `?${pref}`);
+  }
   renderAllDistricts(pref);
 }
 
@@ -320,7 +323,9 @@ async function init() {
       if (allPrefs.includes(key)) { initPref = key; break; }
     }
   }
+  if (initPref) userNavigated = true;
   selectPref(initPref || '東京');
+  userNavigated = true;
 
   if (location.hash) {
     requestAnimationFrame(() => {

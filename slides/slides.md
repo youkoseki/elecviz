@@ -2,7 +2,7 @@
 theme: default
 title: 衆議院選挙：Claudeレビュー
 titleTemplate: '%s - 小関悠'
-favicon: https://youkoseki.com/favicon.ico
+favicon: https://youkoseki.com/favicon.png
 ---
 
 # 衆議院選挙：Claudeレビュー

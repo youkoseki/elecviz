@@ -161,9 +161,9 @@ def render_chart(all_data, district, output_path):
             label = f"{name}\n{party} {pct}%{win}"
             tc = text_color_for(PARTY_COLORS.get(cand['party'], '#aaaaaa'))
             if pct <= 20:
-                fontsize = 12
-            else:
                 fontsize = 14
+            else:
+                fontsize = 16
             fp = FontProperties(family='UD Digi Kyokasho N', weight='bold', size=fontsize)
 
             ax.text(cx, cy, label, ha='center', va='center',
@@ -173,14 +173,14 @@ def render_chart(all_data, district, output_path):
         bottoms += np.array(values)
 
     ax.set_xticks(x)
-    ax.set_xticklabels(YEARS, fontsize=14)
+    ax.set_xticklabels(YEARS, fontsize=15)
     ax.set_ylim(0, 300000)
     ax.yaxis.set_major_locator(plt.MultipleLocator(100000))
     ax.yaxis.set_major_formatter(
         plt.FuncFormatter(lambda v, _: f'{int(v/10000)}万' if v >= 10000 else f'{int(v):,}')
     )
-    ax.tick_params(axis='y', labelsize=14)
-    ax.set_title(district, fontsize=18)
+    ax.tick_params(axis='y', labelsize=15)
+    ax.set_title(district, fontsize=20)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
 

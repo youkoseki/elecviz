@@ -1,0 +1,66 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: slides/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: slides
+
+      - name: Prepare slide images
+        run: |
+          mkdir -p slides/public/local
+          cp local/13東京*.jpg slides/public/local/
+
+      - name: Build slides
+        run: npx slidev build --base /elecviz/slides/
+        working-directory: slides
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site/slides
+          cp index.html _site/
+          cp README.md _site/
+          cp hr2021_districts.csv.gz _site/
+          cp hr2024_districts.csv.gz _site/
+          cp hr2026_districts.csv.gz _site/
+          cp -r local _site/
+          cp -r slides/dist/* _site/slides/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
